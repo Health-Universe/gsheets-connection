@@ -511,6 +511,7 @@ class GSheetsConnection(ExperimentalBaseConnection[GSheetsClient], GSheetsClient
         """Reads st.connection .streamlit/secrets.toml and returns GSheets
         client based on them."""
         secrets_dict = self._secrets.to_dict()
+        secrets_dict.update(kwargs)
         if secrets_dict.get("type", None) == "service_account":
             return GSheetsServiceAccountClient(secrets_dict)
         return GSheetsPublicSpreadsheetClient(secrets_dict)
